@@ -1,28 +1,17 @@
 package org.macalester.edu.comp124.lists;
 
 
-/**
- * An unfinished implementation of an array-based List.
- *
- * @author shilad
- * @param <E>
- */
-public class MyArrayList<E> {
-	/**
-	 * The array elements
-	 */
-	private E elements[];
-	
-	/**
-	 * The number of elements currently contained in the list.
-	 */
-	private int currentSize;
+import java.util.ArrayList;
 
-	/**
-	 * Creates a new list.
-	 */
+public class MyArrayList<E> {
+
+	private E elements[];
+	private int currentSize;
+    private E temp[];
+
+
 	public MyArrayList() {
-		clear();
+
 	}
 	
 	/**
@@ -47,7 +36,7 @@ public class MyArrayList<E> {
 	 * @return
 	 */
 	public E get(int index) {
-        return null;    // replace this line with the correct code.
+      return elements[index];
 	}
 	
 	/**
@@ -60,8 +49,31 @@ public class MyArrayList<E> {
 	 * @param elem
 	 */
 	public void add(E elem) {
-	}
 
+
+        temp=newArrayOfE(currentSize+1);
+     if(currentSize<elements.length){
+
+
+        elements[currentSize]=elem;
+         currentSize++;
+        }else{
+        int i=0;
+        while(i<elements.length){
+            temp[i]=elements[i];
+            i++;
+        }currentSize++;
+        elements= newArrayOfE(currentSize);
+         i--; //i becomes one larger than temp can hold.
+        while(i>=0){
+            elements[i]=temp[i];
+            i--;
+
+        } elements[currentSize-1]=elem;
+    }
+
+
+    }
 	/**
 	 * Inserts a new element at the specified index.
 	 * 
@@ -73,8 +85,39 @@ public class MyArrayList<E> {
 	 * 
 	 * @param elem
 	 */
+    //First checks to see if array is full, if so makes a new array element with same stored values+ one extra space.
+    //Then insert at specified space
 	public void add(int index, E elem) {
-	}
+        temp=newArrayOfE(currentSize);
+        int holder=currentSize;
+        if(currentSize==elements.length){
+            int i=0;
+            while(i<elements.length){
+                temp[i]=elements[i];
+                i++;
+            }
+            elements= newArrayOfE(currentSize + 1);
+            while(i>=0){
+                elements[i]=temp[i];
+                i--;
+
+            }
+
+        }if(elements[index]!=null){
+
+            while(holder>index){
+                elements[holder]=elements[holder-1];
+                        holder--;
+
+            }elements[index]=elem;
+            currentSize++;
+
+
+
+
+        }
+    }
+
 	
 	/**
 	 * Doubles the size of the array, copies the old elements
@@ -85,6 +128,8 @@ public class MyArrayList<E> {
      * Hint: use newArrayOfE!
 	 */
 	private void expandSize() {
+        int i=elements.length;
+        elements=newArrayOfE(i*2);
 	}
 	
 	/**
