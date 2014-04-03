@@ -12,6 +12,7 @@ package org.macalester.edu.comp124.lists;
 public class MyLinkedList<E> {
 	private MyLinkedNode<E> head;
 	private MyLinkedNode<E> tail;
+    private MyLinkedNode<E> temp;
 	private int numElements = 0;
 
     /**
@@ -29,7 +30,11 @@ public class MyLinkedList<E> {
      * @return
      */
 	public E get(int index) {
-		return null;
+    temp= head;
+		for(int i=0; i<=index; i++){
+            temp=temp.getNext();
+
+        }return temp.getValue();
 	}
 
     /**
@@ -38,6 +43,21 @@ public class MyLinkedList<E> {
      * @param elem
      */
 	public void add(E elem) {
+        MyLinkedNode<E> plus= new MyLinkedNode<E>(elem);
+        if(numElements==0){
+            head.setNext(plus);
+            plus.setNext(tail);
+            plus.setPrev(tail);
+            tail.setPrev(plus);
+            numElements++;
+        }else{
+
+        tail.getPrev().setNext(plus);
+        plus.setNext(tail);
+        plus.setPrev(tail.getPrev());
+        tail.setPrev(plus);
+        numElements++;
+        }
 	}
 
     /**
@@ -46,6 +66,16 @@ public class MyLinkedList<E> {
      * @param elem
      */
 	public void add(int i, E elem) {
+        MyLinkedNode<E> plus= new MyLinkedNode<E>(elem);
+        temp= head;
+        for(int a=0; a<=i; a++){
+            temp=temp.getNext();
+        }
+        plus.setNext(temp);
+        plus.setPrev(temp.getPrev());
+        plus.getPrev().setNext(plus);
+        plus.getNext().setPrev(plus);
+        numElements++;
 	}
 
     /**
